@@ -1,0 +1,19 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "layout.html" %}
+{% block headline %}
+    Book Details
+{% endblock %}
+
+{% block content %}
+    &ensp;<label>Book:&emsp; {{ book.title }}</label><br>
+    &ensp;<label>Author: {{ book.author }}</label><br>
+    &ensp;<label>Rating:&nbsp; {{ book.rating }}</label><br>
+    <br>
+    &ensp;<button class="btn btn-danger btn-sm"><a href="{{ url_for('delete_title', id=book.id) }}"
+                                                 style="text-decoration: none; color: white">Delete</a></button>
+    <button class="btn btn-secondary btn-sm"><a href="{{ url_for('home') }}"
+                                                    style="text-decoration: none; color: white">Cancel</a></button>
+    <hr>
+    <br>
+    &ensp;
+{% endblock %}

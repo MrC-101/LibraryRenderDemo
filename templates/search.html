@@ -1,0 +1,63 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends 'layout.html' %}
+{% block headline %}
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+            </svg>
+            <div>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block subhead %}
+    <form method="POST" action="{{ url_for('search') }}" novalidate>
+        {{ form.csrf_token }}
+        <p>
+            &nbsp;Title: &emsp;<br>
+            {{ form.title(size=100) }}
+            {% for err in form.title.errors %}
+                <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            &nbsp;Author:<br>
+            {{ form.author(size=100) }}
+            {% for err in form.author.errors %}
+                <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+            <p>
+            &nbsp;ISBN:<br>
+            {{ form.isbn(size=100) }}
+            {% for err in form.isbn.errors %}
+                <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        <br>
+        {{ form.submit(class="btn btn-secondary btn-sm") }}
+    </form>
+{% endblock %}
+{% block content %}
+    <ul>
+        {% if books|count == 0 %}
+            <p>Library is empty</p>
+        {% else %}
+            {% for book in books %}
+                <li>
+                <button class="btn btn-outline-secondary btn-sm">
+                    <a href="{{ url_for('edit_title', id=book.id) }}"
+                       style='text-decoration: none; color: darkgray'>Edit</a>
+                </button>
+                <button class="btn btn-outline-danger btn-sm">
+                    <a href="{{ url_for('book_details', id=book.id, book=book) }}"
+                       style="text-decoration: none; color: orangered">Delete</a>
+                </button>&ensp;▫️
+                    <a href="{{ url_for('edit_title', id=book.id) }}">{{ book.title }}</a> - <a href="{{ url_for('bibliography', id=book.id, author=book.author) }}">{{ book.author }}</a>
+                    - {{ book.rating }}/10
+            {% endfor %}
+        {% endif %}
+    </ul>
+{% endblock %}

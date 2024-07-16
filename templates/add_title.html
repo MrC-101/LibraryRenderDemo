@@ -1,0 +1,104 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends 'layout.html' %}
+
+{% block headline %}
+    Add Title
+    <style>
+        table {
+            border-spacing: 0;
+        }
+
+        td {
+            padding: 2px;
+        }
+
+        td:first-child {
+            padding-right: 0px;
+        }
+
+        td:last-child {
+            padding-left: 0px;
+        }
+    </style>
+{% endblock %}
+{% block subhead %}
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block content %}
+
+    <form method="POST" action="{{ url_for('add_title') }}" novalidate>
+        {{ form.csrf_token }}
+        <table class="table">
+            <tr>
+                <td style="text-align: left">
+                    &emsp;&emsp;&emsp;Title:
+                </td>
+                <td style="justify-content: left">
+                    {{ form.title(size=100) }}
+                </td>
+                {% for err in form.title.errors %}
+                    <span style="color: red">{{ err }}</span>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td style="text-align: left">
+                    &emsp;&emsp;&emsp;Author:
+                </td>
+                <td>
+                    {{ form.author(size=100) }}
+                </td>
+                {% for err in form.author.errors %}
+                    <span style="color: red">{{ err }}</span>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td style="text-align: left">
+                    &emsp;&emsp;&emsp;Published:
+                </td>
+                <td>
+                    {{ form.first_publish(size=100) }}
+                </td>
+                {% for err in form.first_publish.errors %}
+                    <span style="color: red">{{ err }}</span>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td style="text-align: left">
+                    &emsp;&emsp;&emsp;ISBN:
+                </td>
+                <td>
+                    {{ form.isbn(size=100) }}
+                </td>
+                {% for err in form.isbn.errors %}
+                    <span style="color: red">{{ err }}</span>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td style="text-align: left">
+                    &emsp;&emsp;&emsp;Rating:
+                </td>
+                <td>
+                    {{ form.rating(size=100) }}
+                </td>
+                {% for err in form.rating.errors %}
+                    <span style="color: red">{{ err }}</span>
+                {% endfor %}
+            </tr>
+        </table>
+        <br/>
+        &emsp;&emsp;&emsp;&emsp;{{ form.submit(class="btn btn-secondary btn-sm") }}
+        <button class="btn btn-secondary btn-sm"><a href="{{ url_for('home') }}"
+                                                    style="text-decoration: none; color: white">Cancel</a></button>
+
+    </form>
+    <hr>
+    <br>
+
+{% endblock %}
+
+
