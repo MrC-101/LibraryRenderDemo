@@ -45,15 +45,15 @@ class AddForm(FlaskForm):
     author = StringField(label='author', validators=[InputRequired()])
     isbn = StringField(label='isbn')
     first_publish = StringField(label='first_publish')
-    rating = FloatField(label='rating', validators=[InputRequired()])
+    rating = FloatField(label='rating')
     submit = SubmitField(label='Add Title')
 
 class Books(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(250), unique=True, nullable=False)
-    author = db.Column(db.String(250), nullable=False)
-    isbn = db.Column(db.String(250), nullable=True)
-    first_publish = db.Column(db.Numeric(4), nullable=True)
+    title = db.Column(db.String, unique=True, nullable=False)
+    author = db.Column(db.String, nullable=False)
+    isbn = db.Column(db.String, nullable=True)
+    first_publish = db.Column(db.Numeric, nullable=True)
     rating = db.Column(db.Float, nullable=True)
 
 with app.app_context():
