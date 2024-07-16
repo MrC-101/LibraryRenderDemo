@@ -35,7 +35,7 @@ class SearchForm(FlaskForm):
 class UpdateForm(FlaskForm):
     title = StringField(label='title', validators=[InputRequired()])
     author = StringField(label='author', validators=[InputRequired()])
-    first_publish = StringField(label='first_publish')
+    first_publish = IntegerField(label='first_publish')
     isbn = StringField(label='isbn')
     rating = FloatField(label='rating')
     submit = SubmitField(label='Update')
@@ -44,16 +44,16 @@ class AddForm(FlaskForm):
     title = StringField(label='title', validators=[InputRequired()])
     author = StringField(label='author', validators=[InputRequired()])
     isbn = StringField(label='isbn')
-    first_publish = StringField(label='first_publish')
+    first_publish = IntegerField(label='first_publish', validators=[InputRequired()])
     rating = FloatField(label='rating')
     submit = SubmitField(label='Add Title')
 
 class Books(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, unique=True, nullable=False)
-    author = db.Column(db.String, nullable=False)
-    isbn = db.Column(db.String, nullable=True)
-    first_publish = db.Column(db.Numeric, nullable=True)
+    author = db.Column(db.String(100), nullable=False)
+    isbn = db.Column(db.String(14), nullable=False)
+    first_publish = db.Column(db.Numeric(4), nullable=False)
     rating = db.Column(db.Float, nullable=True)
 
 with app.app_context():
