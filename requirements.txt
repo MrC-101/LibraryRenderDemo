@@ -8,7 +8,7 @@ Flask-Bootstrap==3.3.7.1
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.1
 greenlet==3.0.3
-gunicorn==22.0.0
+gunicorn==23.0.0
 is-disposable-email==1.0.0
 itsdangerous==2.2.0
 Jinja2==3.1.4
